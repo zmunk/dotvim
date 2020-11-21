@@ -5,6 +5,8 @@ function! ToggleComment()
     let comment = "#"
   elseif filetype == 'vim'
     let comment = '"'
+  elseif filetype == 'gitignore'
+    let comment = '#'
   else
     let comment = "\/\/"
   endif

@@ -1,30 +1,44 @@
-
 filetype plugin indent on
+
+set directory=~/.vim/tmp
 
 set number
 set showcmd
 let mapleader = " "
 
-nnoremap <leader>w :w<CR>
+syntax on
+set background=dark
+colorscheme hybrid
 
+"" commands """""""""""""""""""""""
+
+" split window and open vimrc
+command Vimrc :vsp $MYVIMRC
+
+" copy specified range from specified file
+command -nargs=+ Copy call Copy(<f-args>)
+function! Copy( ... )
+    execute printf('r! sed -n %sp %s', a:1, a:2)
+endfunction
+
+""""""""""""""""""""""""""""""
+
+" shortcuts to save and exit
+nnoremap <leader>w :w<CR>
+nnoremap <leader>x :x<CR>
+nnoremap <leader>q :q<CR>
+
+" quick window switching
 map <C-h> <C-w>h
 map <C-l> <C-w>l
 map <C-j> <C-w>j
 map <C-k> <C-w>k
-
-
-set directory=~/.vim/tmp
 
 " toggle comments
 source ~/.vim/vcomments.vim
 map <silent> <C-_> :call ToggleComment()<CR>
 
 " auto close when opened quotes/parentheses
-inoremap " ""<left>
-inoremap ' ''<left>
-inoremap ( ()<left>
-inoremap [ []<left>
-inoremap { {}<left>
 inoremap {<CR> {<CR>}<ESC>O
 inoremap {;<CR> {<CR>};<ESC>O
 
@@ -36,6 +50,3 @@ if has("autocmd")
   augroup end
 endif
 
-syntax on
-set background=dark
-colorscheme hybrid
