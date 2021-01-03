@@ -2,6 +2,9 @@ filetype plugin indent on
 
 set directory=~/.vim/tmp
 
+set laststatus=2
+set splitright
+
 set number
 set showcmd
 let mapleader = " "
@@ -15,13 +18,20 @@ colorscheme hybrid
 " split window and open vimrc
 command Vimrc :vsp $MYVIMRC
 
+" vertical split terminal
+command Vt :vert term
+
 " copy specified range from specified file
+" TODO example
 command -nargs=+ Copy call Copy(<f-args>)
 function! Copy( ... )
     execute printf('r! sed -n %sp %s', a:1, a:2)
 endfunction
 
 """"""""""""""""""""""""""""""
+
+nnoremap <leader>n :tabn<CR>
+nnoremap <leader>p :tabp<CR>
 
 " shortcuts to save and exit
 nnoremap <leader>w :w<CR>
@@ -38,6 +48,18 @@ map <C-k> <C-w>k
 source ~/.vim/vcomments.vim
 map <silent> <C-_> :call ToggleComment()<CR>
 
+" surround with quotes or parentheses
+" :nnoremap <Leader>` maI`<ESC>A`<ESC>`a
+" :vnoremap <Leader>" di""<ESC>Pviw
+" :vnoremap <Leader>[ "adXx"aPviw
+" :vnoremap ' di''<ESC>P
+" :vnoremap ( di()<ESC>P
+" :vnoremap ) di()<ESC>P
+" :vnoremap [ di[]<ESC>P
+" :vnoremap ] di[]<ESC>P
+" :vnoremap { di{}<ESC>P
+" :vnoremap } di{}<ESC>P
+
 " auto close when opened quotes/parentheses
 inoremap {<CR> {<CR>}<ESC>O
 inoremap {;<CR> {<CR>};<ESC>O
@@ -50,3 +72,4 @@ if has("autocmd")
   augroup end
 endif
 
+autocmd BufWritePost ~/.i3 silent !i3-msg reload | redraw

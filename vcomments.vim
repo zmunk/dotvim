@@ -1,14 +1,10 @@
 function! ToggleComment()
   let filetype = &filetype
 
-  if filetype == 'python'
-    let comment = "#"
-  elseif filetype == 'vim'
+  if filetype == 'vim'
     let comment = '"'
-  elseif filetype == 'gitignore'
-    let comment = '#'
   else
-    let comment = "\/\/"
+    let comment = '#'
   endif
 
   if strlen(getline('.'))+1 < strlen(comment)
